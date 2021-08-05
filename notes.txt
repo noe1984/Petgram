@@ -1,0 +1,330 @@
+CLONANDO REPOSITORIO
+npm init -y
+
+
+-----INSTALAR WEBPACK 
+1-npm i webpack webpack-cli --save-dev
+
+2-Crear carpeta src en raiz y dentro index.js
+
+3-EMPAQUETAR EL ARCHIVO INDEX USANDO WEBPACK
+    ./node_modules/.bin/webpack src/index.js   ó   npx webpack --entry ./src/index.js
+    para ejecutarlo en consola   node dist/main.js
+
+4-CREAMOS EN LA RAIZ DE NUESTRO PROYECTO:  webpack.config.js
+    npm install html-webpack-plugin --save-dev
+
+    const htmlWebpackPlugin = require('html-webpack-plugin')
+
+    module.exports = {
+        output: {
+            filename: 'app.bundle.js'
+        },
+        plugins: [
+            new htmlWebpackPlugin()
+        ]
+    }
+
+5-AGREGANDO SCRIPTS
+Agregar en scripts en package.json  "build": "webpack"  y este mirara por defecto en src
+    ejecutar  npm run build
+
+6-INSTALAR EL SERVIDOR DE DESARROLLO DE WEBPACK
+    npm install webpack-dev-server --save-dev
+
+7-AÑADIR NUEVO SCRIPT PARA LO ANTERIOR
+    "dev": "webpack-dev-server" y lo ejecutamos npm run dev  
+        *npm i webpack-cli@3 --save-dev   se instaló nueva version ya que la 4 mostraba error
+        *nuevas versiones es el script "webpack serve",
+        *devtool: 'source-map' , en webpack.config para la quitar advertencia en consola
+ 
+
+
+
+----INSTALACION DE REACT Y BABEL
+1- npm i react react-dom
+2-En index.js importar los anteriores y renderizar, ejecutar servidor local
+3-En src crear index.html y crear el div con el id 'app'
+4-Para poder usar ese index.html en proyecto se le tiene que indicar al htmlWebpackPlugin que tiene que usar este
+    template para generar el index.html.
+    en webpack.config:
+
+        new htmlWebpackPlugin({
+            template: 'src/index.html'
+        })
+
+5-Para poder renderezar jsx se tendran que instalar dependencias de babel
+    npm i @babel/core @babel/preset-env @babel/preset-react babel-loader --save-dev
+    En webpack.config para usar el loader y los preset:
+
+    module: {
+        rules: [
+            { 
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            '@babel/preset-env', 
+                            '@babel/preset-react'
+                        ]
+                    }
+                }, 
+            }
+        ]
+    }
+
+
+
+
+
+---LINTER, EXTENSIONES Y DEPLOY CON NOW
+1- npm i standard --save-dev y añadir script "lint": "standard"
+2- Para que no haga linter de esos archivos y error añadir debajo de en el package.json dependencies:
+      "standard": {
+            "ignore": [
+            "/api/**"
+            ]
+        }
+3-En package.json añadir una nueva linea
+    "eslintConfig": {
+        "extends": ["./node_modules/standard/eslintrc.json"]
+    }
+
+ASEGURAR EL DEPLOY DE api, VERCEL
+1-   Instalar vercel
+    Si es necesario actualizar node:
+    *sudo npm cache clean -f, sudo npm install -g n, sudo n stable (actualizar a la ultima version)
+
+    sudo npm i -g vercel
+    ejecutar vercel
+
+    ? Which scope do you want to deploy to? [nick de vercel] (Presionan Enter)
+    ? Link to existing project? [y/N] (Presionan n)
+    ? What’s your project’s name? petgram-vercel (Presionan Enter)
+    ? In which directory is your code located? ./ (Presionan Enter)
+
+2- Hacer el archivo de configuracion de vercel en la raiz como vercel.json
+    añadir script "vercel-build": "npm run build"
+
+3-Ir a pagina de vercel en proyecto y settings
+    Para el deploy en produccion debemos cambiar el output directory: 
+    para ellos nos vamos a vercel, 
+    buscamos el proyecto y luego en settings, 
+    habilitamos el output directory y escribimos dist le damos en el botón SAVE.
+    ejecutar vercel --prod en raiz de proyecto
+
+
+
+                             COMPONENTS HOOKS
+
+----CATEGORY, PRIMER COMPONENTE, STYLED-COMPONENTS
+1-npm i styled-components
+2-Crear en src App.js y renderizar en index.js
+
+3-Crear carpeta components, dentro crear carpeta Category y dentro de esta index.js
+    donde se hara el export de forma nombrada, que contiene el cover, path y emoji como parametros
+    y devuelve un a con la img y el emoji, importarlo envuelto en llaves en App.js
+
+4- Para trabajar los estilos crearemos siempre un archivo llamado styles.js
+    import styled from 'styled-components'
+    Usar styled y exportar las const que contienen el css e importarlos en index.js
+
+-----LIST OF CATEGORIES
+1-Nueva carpeta ListOfCategories y dentro index.js que develve componente Category, renderizarlo en App.js
+2-Styes.js para dar estilos con styled-components a ul y li
+3-GlobalStyles.js en src, importarlos en App.js para usarlos arriba de ListOfCategories
+4-Traer categories de la api local y mapearlas en ListOfCategories y dentro en el componente Category
+    pasar como prop con el rest o spread operator cada categoria.
+
+-----PHOTOCARD, LIKE A FOTO
+1-En components crear carpeta PhotoCard y dentro el index.js donde la funcion recibe como parametros
+    likes y id, y contiene un article que tiene una a que conectara a {`/detail/${id} ademas de un button
+    para los likes.
+2-Usar este componente en App.js debajo de ListOfCategories y temporalmente usar una imagen en una const 
+    de la db.json para mostrar. Crear styled.js
+3- npm i react-icons
+    para prop size='32px' usarlo en el button al lada de{likes}
+    ainear el button
+4-Crear carpeta ListOfPhotoCards dentro index.js y depues renderizarlo en App.js en vez de PhotoCard
+
+-----LOGO PETGRAM 
+1-Convertirlo en un componente de react con SVGR
+2-Crear carpeta Logo en components dentro index.js y pegamos en el codigo generado por la pagina:
+    https://react-svgr.com/playground/ hacer styles.js y usarlo en App.js.
+
+
+-----ANIMACIONES CON KEYFRAMES, PHOTOCARD
+1-Importar {keyframes} en styles.js y hacer const fadeInKeyFrames, para usasrlo en Img como:
+    animation: 1s ${fadeInKeyFrames} ease;
+2-Hacer reutilizable la anterior animacion, creamos carpeta styles en src y dentro animations.js
+3-Mover GlobalStyles dentro de la carpeta styles y acutalizar el import donde corresponda
+
+----USESTATE, USEEFFECT EN ListOfCategories
+1-En ListOfCategories usar useState y cambiar el import de categories por 
+    import {categories as mockCategories } from '../../../api/db.json'
+2-Hacer fetch con useEffect
+    'https://api-noe1984.vercel.app/categories', ahora categories estara en setState y eliminamos 
+    la const de la base de datos local y el valor inicial del state sera un array vacio
+
+----ListOfCategories FIXED
+1-Crear funcion renderList que reutilizara la lista existente y renderizar la funcion en el return dos veces
+    una con el parametro true
+2-Añadir estilos a List cuando contenga la className 'fixed'
+3-Hacer que la minilista aparezca solo a cierto nivel de scroll usando otro useEffect cuando el scroll > 200
+4-Evitar que el document.addEventListener se siga escuchando o memory leak, con una funcion que devuelve un 
+    removeEventListener y pasarle el segundo parametro a useEffect la dependencia showFixed.
+
+----useCategoriesData, buenas practicas, loading
+*buenas practicas: refactorizar en renderList en el if ternario, ahora fixed como prop y recibirlo en 
+    styles.js y con una funcion devolver el css.
+*refactorizar el fetch: Crear custom hook useCategoriesData fuera y empaquetar en esta funcion el fetching
+    agregar estado de loading a esta funcion con useState, 
+*hacer loading true justo antes del llamado y hacer
+    loading false inmediatamente despues de llamado correcto, y devolverlo {loading} para que se pueda
+    usar en ListOfCategories
+*Hacer un if ternario en renderList si esta cargando que muestre el componente Loading y si ya no esta 
+    cargando que muestre todas las categorias
+
+-----PHOTOCARD, intersectionObserver, useEffect, useRef
+1-En PhotoCard usar useRef en article
+2-Con useEffect usar intersectionObserver y obsevar el elemento de ref
+    de esto obtener const {isIntersecting} = entries[0]
+3-con useState inicializar un estado show false
+4-En el useEffect debajo del obsever hacer un if para que la propiedad isIntersecting se vuelva true con 
+    setShow y desconectar el observador
+5-condicional dentro de article si show mostrar contenido
+6-En consola mostrara todos como intersectando valor true por que no se muestran al principio, entonces cambiar 
+    el tamaño minimo de altura de cada elemento article a 200 o 300px.
+
+------PHOTOCARD,POLYFILL PARA intersectionObserver
+1-npm install intersection-observer
+2-Usar esta dependencia en el useEffect por que es ahi donde damos por sentado que se soporta intersectionObserver
+    pero no siempre es asi, lo vamos a cargar solo cuando lo necesitemos haciendo un import dinamico dentro del hook
+    import('intersection-observer') que devuelve una promesa
+3-Si el navegador ya soporta el intersectionObserver entonces no ejecutar el import dinamico, haremos un ternario para 
+    solucionar esto, como devuelve una promesa haremos un promise.resolve
+
+-----PHOTOCARD,LOCAL STORAGE ALMACENAR LIKES
+1-inicializar un estado false con useState llamandolo liked
+2-En button en onClick crear una funcion para modificar el estado al contrario del que se tiene en liked
+3-crear una funcion de tipo componente que devuelve un tipo de corazon dependiendo del valor true o false de liked
+    se obtiene el corazon relleno de 'react-icons/md' que se llama MdFavorite.
+4-Hacer que el estado recuerde si se ha dado like o no, primero hacer una const setLocalStore con un try catch y aqui
+    se usara el setState para cambiar el estado, usar esta funcion en el onClick.
+5-Para que el valor almacenado se muestre no solo en consola se tiene que inicializar el estado pasandole un funcion
+    con try catch a useState en el valor inicial, que obtendra el valor de setLocalStore y lo devolvera como state inicial
+6-Para hacer un local storage correcto se pasara en el componente ListOfPhotoCards la prop id={id} a PhotoCard que 
+    lo guardara como una const key, usar este valor para almacenar en el storage y en el state inicial
+7-Agrupar esto en un custom hook llamado useLocalStorage que devolvera,  el estado y la funcion que modifica 
+    el estado, en este caso el useState si hay un estado almacenado en localStorage devolvera el que se encuentre alli
+    como valor inicial,
+    y la funcion que modifica el estado tambien almacenara ese estado en la localStorage
+
+    
+
+                                    FETCHING DE DATOS 
+------CONECTANDO CON SERVIDOR DE APOLLO
+1- En index.js principal
+
+import ApolloClient from 'apollo-boost'
+import { ApolloProvider } from '@apollo/react-hooks'
+
+const client = new ApolloClient({
+  uri: 'https://api-nine-gamma.vercel.app/graphql'
+})
+
+ReactDOM.render(
+  // eslint-disable-next-line react/jsx-filename-extension
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
+  document.getElementById('app')
+)
+
+
+2- En ListOfPhotoCards
+
+const getPhotos = gql`
+  query getPhotos {
+    photos {
+      id
+      categoryId
+      src
+      likes
+      userId
+      liked
+    }
+  }
+`
+3-Exportar ListOfPhotoCards que contiene 
+    const { loading, error, data } = useQuery(getPhotos)
+    mapear photos que viene de data 
+    pasasr key={id} {...photoCard} a componente PhotoCard
+
+
+------PARAMETROS PARA UN QUERY CON graphql, FILTRAR POR CATEGORIAS 
+1- Agregar
+
+const getPhotos = gql`
+  query getPhotos($categoryId: ID) {
+    photos(categoryId: $categoryId) {
+      id
+      categoryId
+      src
+      likes
+      userId
+      liked
+    }
+  }
+`
+
+2-En ListOfPhotoCards
+    Agregar const { loading, data, error } = useQuery(getPhotos, { variables: { categoryId } })
+    categoryId como parametro que recibe la funcion y que sera definido en App.js
+
+3- Separar el hoc en una carpeta en src con el nombre de useGetPhotos
+
+--------RENDER PROPS
+1-En PhotoCard cambiar la ruta del href <a href={`/?detail=${id}`}>
+2-En App.js añadir llaves para agregar la const urlParams y detailId
+    const urlParams = new URLSearchParams(location.search)
+    const detailId = urlParams.get('detail')
+3-Si detailId es true renderizar un componente si no renderizar lo que ya se tenia 
+4-Ver las fotos de forma separada: detalles
+    El compoenente a renderizar es en src>contaiiners PhotoCardWithQuery que devuelve PhotoCard
+5-Crear la const query
+6-refactorizar, en PhotoCardWithQuery la const en vez de query GET_SINGLE_PHOTO 
+    y en hoc en vez de getPhotos GET_PHOTOS 
+
+
+-------ENVIAR LIKES A BASE DE DATOS, MUTATION 
+1-Crear en components> FavButton.js< index.js y llevar el boton de PhotoCard alli
+2-recibira parametros de ({liked, likes, onClick})
+3-Usar Button en PhotoCard y pasarle los parametros tambien onClick al cual se le pasara la funcion
+    handelFavClick
+4-Crear mutacion, En containers crear ToggleLikeMutation.js 
+    const LIKE_PHOTO = gql`
+    mutation likeAnonymousPhoto($input: LikePhoto!) {
+        likeAnonymousPhoto(input: $input) {
+        id,
+        liked,
+        likes
+        }
+    }
+    `
+export const ToggleLikeMutation = () => {
+    const [mutation, mutationLoading, mutationError ] = useMutation(LIKE_PHOTO)
+    return { mutation, mutationLoading, mutationError }
+}
+5-En PhotoCard importar el ToggleLikeMutation 
+     const { mutationLoading, mutationError, mutation } = ToggleLikeMutation()
+
+    const handleFavClick = () => {
+        !liked && mutation({ variables: {input: { id }}
+        })
+        setLiked(!liked)
+    }
+
+
