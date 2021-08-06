@@ -41,7 +41,10 @@ export const ListOfCategories = () => {
     <List fixed={fixed}>
       {
         loading? <Loading />
-        : categories.map(category => <Item key={category.id}><Category {...category} /></Item>)
+        : categories.map(category => 
+        <Item key={category.id}>
+          <Category {...category} path={`/pet/${category.id}`} />
+        </Item>)
       }
     </List>
   )

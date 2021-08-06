@@ -328,3 +328,23 @@ export const ToggleLikeMutation = () => {
     }
 
 
+------RUTAS
+1-Crear carpeta src>pages y Home.js y cortar App.js el Fragment que contiene ListOfCategories y ListOfPhotoCards
+    e importarlo en App.js
+2- npm install @reach/router  e importarlo en App.js import {Router} from '@reach/router'
+3-Envolver con Router a Home que tiene path='/' y a <Home path='/pet/:id' />
+4-Buscar donde estan los enlaces de la categorias que es en ListOfCategories que renderiza Category aqui 
+    agregamos el  path={`/pet/${category.id}`} 
+5-Esto arrojara un error 404 de la configuracion de webpack, se puede resolver de 2 maneras
+    -En package.json agregar en dev el flag --history-api-fallback" , para que en caso de 404 haga un fallback a
+    index.html.
+    
+    - ó En webpack
+        devServer: {
+            historyApiFallback: {
+            disableDotRule: true
+            },
+            liveReload: true
+        },
+
+6-Agregar en webpack publicPath: '/' para que sea en esta ruta donde va a encontrar el bundle.js

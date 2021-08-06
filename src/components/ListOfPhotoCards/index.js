@@ -4,6 +4,7 @@ import { PhotoCard } from '../PhotoCard'
 
 
 export const ListOfPhotoCards = (categoryId) => {
+  // console.log(categoryId)
   const {loading, error, data} = useGetPhotos(categoryId)
   if (loading) return 'loading'
   if (error) return <p>Error</p>
