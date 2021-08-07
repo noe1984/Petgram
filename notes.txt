@@ -328,7 +328,7 @@ export const ToggleLikeMutation = () => {
     }
 
 
-------RUTAS
+------RUTAS, VER CADA CATEGORIA POR CATEGORYID
 1-Crear carpeta src>pages y Home.js y cortar App.js el Fragment que contiene ListOfCategories y ListOfPhotoCards
     e importarlo en App.js
 2- npm install @reach/router  e importarlo en App.js import {Router} from '@reach/router'
@@ -348,3 +348,15 @@ export const ToggleLikeMutation = () => {
         },
 
 6-Agregar en webpack publicPath: '/' para que sea en esta ruta donde va a encontrar el bundle.js
+
+------LINK EN CATEGORYID Y LOGO, EVITAR RECARGAR PAGINA AL ELEGIR UNA CATEGORIA
+1- En Category> styles.js import { Link } from '@reach/router' y pasarselo como parametro a styled
+    el cual aceptara un componente que acepte la prop className y Link lo aceptara
+
+2-En Category> index.js en el Anchor ahora es to={path} y en los parametros recibidos de ser necesario
+    inicializar el path=#
+3-Mejorar codigo,en index.js cambiar nombre de Anchor a Link en index.js y en styles 
+    import { Link as LinkRouter} from '@reach/router'
+    export const Link = styled(LinkRouter)`
+4-* Agregar Link en Logo, en index.js import { Link } from '@reach/router'
+    Envolver el svg con Link el cual va a redirigir al Home '/'
