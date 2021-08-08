@@ -360,3 +360,16 @@ export const ToggleLikeMutation = () => {
     export const Link = styled(LinkRouter)`
 4-* Agregar Link en Logo, en index.js import { Link } from '@reach/router'
     Envolver el svg con Link el cual va a redirigir al Home '/'
+
+
+-------DETAIL, INCORPORARLO A ROUTE
+1-En pages crear Detail.js el cual devolvera el compoenente PhotoCardWithQuery
+    Ahora el detailId se recibira por props 
+2-se borrara este bloque:
+  const urlParams = new URLSearchParams(location.search)
+  const detailId = urlParams.get('detail')
+  console.log(detailId)
+3-Se renderizara el Router debajo del logo y se elimina la ternaria
+4-Renderizar dentro del Router el Detail y pasarle el path='/detail/:detailId'
+5-En Photocard que es donde se define el enlace ahora yan no sera un anchor sino un
+    Link to={`/detail/${id}`}
