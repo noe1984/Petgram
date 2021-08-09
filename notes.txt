@@ -286,6 +286,7 @@ const getPhotos = gql`
 
 3- Separar el hoc en una carpeta en src con el nombre de useGetPhotos
 
+
 --------RENDER PROPS
 1-En PhotoCard cambiar la ruta del href <a href={`/?detail=${id}`}>
 2-En App.js añadir llaves para agregar la const urlParams y detailId
@@ -373,3 +374,14 @@ export const ToggleLikeMutation = () => {
 4-Renderizar dentro del Router el Detail y pasarle el path='/detail/:detailId'
 5-En Photocard que es donde se define el enlace ahora yan no sera un anchor sino un
     Link to={`/detail/${id}`}
+
+
+-------NAVBAR
+1-En components crear carpeta NavBar que devuelve 3 buttons, usarlo debajo de Router
+2-Crear archivo styles.js y exportar Nav y Link, usarlos en el index y pasar los siguientes paths
+    <Nav>
+        <Link to='/'><MdHome size={SIZE}/></Link>
+        <Link to='favs'><MdFavoriteBorder size={SIZE} /></Link>
+        <Link to='/user'><MdPersonOutline size={SIZE} /></Link>
+    </Nav>
+3-Pasarle un size de 32 px a los componentes de iconos
