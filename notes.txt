@@ -385,3 +385,18 @@ export const ToggleLikeMutation = () => {
         <Link to='/user'><MdPersonOutline size={SIZE} /></Link>
     </Nav>
 3-Pasarle un size de 32 px a los componentes de iconos
+4-En styles.js agregar, si el componente padre tiene un atributo agregar cierto estilo
+    &[aria-current] {
+        color: #000;
+    }
+5-añadir un pseudoelemento
+        &:after {
+            content: '·';
+            position: absolute;
+            bottom: 0;
+            font-size: 34px;
+            line-height: 20px;
+        }
+
+6-añadir el fadeIn de animation.js dentro del pseudoelemento para que solo ocurra en el puntito
+    ${fadeIn({time: '.5s'})}

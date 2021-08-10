@@ -1,12 +1,13 @@
 import React from 'react'
 import { useGetPhotos } from '../../hoc/useGetPhotos'
 import { PhotoCard } from '../PhotoCard'
+import { Loading } from '../../styles/Loading'
 
 
 export const ListOfPhotoCards = (categoryId) => {
   // console.log(categoryId)
   const {loading, error, data} = useGetPhotos(categoryId)
-  if (loading) return 'loading'
+  if (loading) return <Loading />
   if (error) return <p>Error</p>
 
   return (
