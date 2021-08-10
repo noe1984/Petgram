@@ -386,6 +386,7 @@ export const ToggleLikeMutation = () => {
     </Nav>
 3-Pasarle un size de 32 px a los componentes de iconos
 4-En styles.js agregar, si el componente padre tiene un atributo agregar cierto estilo
+    *@reach/router marca las rutas que estan siendo activas con el atributo aria-current
     &[aria-current] {
         color: #000;
     }
