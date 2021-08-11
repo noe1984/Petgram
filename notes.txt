@@ -289,12 +289,12 @@ const getPhotos = gql`
 
 --------RENDER PROPS
 1-En PhotoCard cambiar la ruta del href <a href={`/?detail=${id}`}>
-2-En App.js añadir llaves para agregar la const urlParams y detailId
+2-En App.js añadir llaves a la funcion para agregar la const urlParams y detailId
     const urlParams = new URLSearchParams(location.search)
     const detailId = urlParams.get('detail')
 3-Si detailId es true renderizar un componente si no renderizar lo que ya se tenia 
 4-Ver las fotos de forma separada: detalles
-    El compoenente a renderizar es en src>contaiiners PhotoCardWithQuery que devuelve PhotoCard
+    El compoenente a renderizar es en src>containers PhotoCardWithQuery que devuelve PhotoCard
 5-Crear la const query
 6-refactorizar, en PhotoCardWithQuery la const en vez de query GET_SINGLE_PHOTO 
     y en hoc en vez de getPhotos GET_PHOTOS 
@@ -401,3 +401,23 @@ export const ToggleLikeMutation = () => {
 
 6-añadir el fadeIn de animation.js dentro del pseudoelemento para que solo ocurra en el puntito
     ${fadeIn({time: '.5s'})}
+
+
+-----RUTAS PROTEGIDAS, 
+1-En pages crear Favs.js y User.js y NotRegisteredUser.js que por ahora solo renderizan sus nombres
+2-Usar estas pages en el App.js y al NotRegisteredUser añadir los siguientes path
+    <NotRegisteredUser path='/favs' />
+    <NotRegisteredUser path='/user' />
+3-Hacer que si esta registrado vea unas rutas y si no lo esta que vea otras.
+4-Crear funcion del tipo render Props como sigue 
+    const UserLogged = ({children}) => {
+        return children({isAuth: false})
+    }
+5-En Router poner las rutas anteriormente creadas dentro de UserLogged que seran devueltas por una funcion
+    dependiendo si el valor isAuth es true o false usando un ternario
+    Si isAuth es true devolvera un Router donde tendra acceso a 
+        <Favs path='/favs' />
+        <User path='/user' />
+    Si isAuth es false
+        <NotRegisteredUser path='/favs' />
+        <NotRegisteredUser path='/user' />
