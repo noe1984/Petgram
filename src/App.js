@@ -8,6 +8,7 @@ import { NavBar } from './components/NavBar'
 import { Favs } from './pages/Favs'
 import { User } from './pages/User'
 import { NotRegisteredUser } from './pages/NotRegisteredUser'
+import Context from './Context'
 
 export const App = () => {
 
@@ -24,7 +25,7 @@ export const App = () => {
           <Home path='/pet/:id' />
           <Detail path='/detail/:detailId' />
       </Router>
-      <UserLogged>
+      <Context.Consumer>
         {
           ({isAuth}) => 
           isAuth 
@@ -38,7 +39,7 @@ export const App = () => {
             <NotRegisteredUser path='/user' />
           </Router>
         }
-      </UserLogged>
+      </Context.Consumer>
         <NavBar /> 
     </>
   )

@@ -5,3 +5,8 @@ export const Svg = styled.svg`
   margin-left: -10px;
   margin-top: -30px;
 `
+export const Div = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`

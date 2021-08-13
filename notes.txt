@@ -117,7 +117,11 @@ ASEGURAR EL DEPLOY DE api, VERCEL
 
 
 
-                             COMPONENTS HOOKS
+
+
+                             COMPONENTS
+                             
+CREANDO LA INTERFAZ CON CON STYLED-COMPONENTS//////////
 
 ----CATEGORY, PRIMER COMPONENTE, STYLED-COMPONENTS
 1-npm i styled-components
@@ -130,6 +134,9 @@ ASEGURAR EL DEPLOY DE api, VERCEL
 4- Para trabajar los estilos crearemos siempre un archivo llamado styles.js
     import styled from 'styled-components'
     Usar styled y exportar las const que contienen el css e importarlos en index.js
+
+
+HOOKS/////////////////////
 
 -----LIST OF CATEGORIES
 1-Nueva carpeta ListOfCategories y dentro index.js que develve componente Category, renderizarlo en App.js
@@ -223,8 +230,9 @@ ASEGURAR EL DEPLOY DE api, VERCEL
     y la funcion que modifica el estado tambien almacenara ese estado en la localStorage
 
     
+                             
+GRAPHQL Y REACT APOLLO///////////////////////
 
-                                    FETCHING DE DATOS 
 ------CONECTANDO CON SERVIDOR DE APOLLO
 1- En index.js principal
 
@@ -329,6 +337,9 @@ export const ToggleLikeMutation = () => {
     }
 
 
+
+REACH ROUTER//////////////////////
+
 ------RUTAS, VER CADA CATEGORIA POR CATEGORYID
 1-Crear carpeta src>pages y Home.js y cortar App.js el Fragment que contiene ListOfCategories y ListOfPhotoCards
     e importarlo en App.js
@@ -421,3 +432,34 @@ export const ToggleLikeMutation = () => {
     Si isAuth es false
         <NotRegisteredUser path='/favs' />
         <NotRegisteredUser path='/user' />
+
+
+
+GESTION DE USUARIOS///////////////////////
+
+-----INTRODUCCION A REACT.CONTEXT, AUTENTICACION REGISTRADO O NO
+*Saber desde cualquier punto de la aplicacion si el usuario esta autentificado o no
+*Context ofrece dos caracteristicas Provider y Consumer
+
+1-En src>Context.js crear la const Context y export default
+2-En index.js envolver la app con el Context.Provider y pasarle el value = {isAuth}
+3-En App.js ya no necesitamos la funcion UserLogged ahora usar Context.Consumer 
+4-Cambiar el valor de forma dinamica, en context crear la const Provider
+    recibe parametro children
+    crea const value que que tiene dos valores isAuth y una funcion que hace setIsAuth
+    retorna Context.Provider con el value anterior y el objeto children
+    hacer un export default de 
+5-En NotRegisteredUser hacer proporcione una forma de autentificar al usuario 
+    usar el Consumer que renderiza una funcion al estilo render props y retorna un forma
+    con el onSubmit que ejecuta la funcion activateAuth.
+
+------FORMULARIO, useInputValue
+1- En components>UserForm>index.js, crear la funcion UserForm que retornara el formulario 
+    con input de email y password
+2-El value y el onChange se obtendran de un estado local usando useState, valor inicial ''
+3-El value vendra del estado y el onChange de una funcion que cambia estado
+4-simplificar los inputs con un custom hook llamado useInputValue el cual usa useState
+    y devuelve value y onChange
+6-Usarlos en los input con el spread operator 
+7-Crear archivo styles.js que contiene Form, Input, Button y Title
+
