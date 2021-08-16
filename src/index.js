@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { App } from './App'
-import ApolloClient from 'apollo-boost'
-import { ApolloProvider } from '@apollo/react-hooks'
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 import Context from './Context'
 
 const client = new ApolloClient({
-  uri: 'https://api-nine-gamma.vercel.app/graphql'
+  uri: 'https://api-nine-gamma.vercel.app/graphql',
+  cache: new InMemoryCache()
 })
 
 ReactDOM.render(
@@ -15,5 +15,5 @@ ReactDOM.render(
       <App />
     </ApolloProvider>
   </Context.Provider>,
-  document.getElementById('app')
+  document.getElementById('app') 
 )

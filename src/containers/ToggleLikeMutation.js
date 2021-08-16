@@ -1,7 +1,4 @@
-import React from 'react'
-
-import { gql } from 'apollo-boost'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation, gql } from '@apollo/client'
 
 const LIKE_PHOTO = gql`
 mutation likeAnonymousPhoto($input: LikePhoto!) {

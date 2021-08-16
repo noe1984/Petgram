@@ -19,7 +19,7 @@ const Provider = ({ children }) => {
 }
 
 
-export default {
+export default { 
     Provider,
     Consumer: Context.Consumer
 }

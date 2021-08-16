@@ -12,12 +12,8 @@ import Context from './Context'
 
 export const App = () => {
 
-  const UserLogged = ({children}) => {
-    return children({isAuth: false})
-  }
-
   return (
-    <>
+    <> 
       <GlobalStyle />
       <Logo />
       <Router>
@@ -39,7 +35,7 @@ export const App = () => {
             <NotRegisteredUser path='/user' />
           </Router>
         }
-      </Context.Consumer>
+      </Context.Consumer> 
         <NavBar /> 
     </>
   )

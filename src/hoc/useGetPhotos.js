@@ -1,4 +1,5 @@
-import { gql, useQuery } from '@apollo/react-hooks'
+import { useQuery, gql } from '@apollo/client'
+
 
 export const useGetPhotos = ({categoryId}) => {
   
