@@ -453,7 +453,7 @@ GESTION DE USUARIOS///////////////////////
     usar el Consumer que renderiza una funcion al estilo render props y retorna un forma
     con el onSubmit que ejecuta la funcion activateAuth.
 
-------FORMULARIO, useInputValue
+------FORMULARIO, useInputValue, styles
 1- En components>UserForm>index.js, crear la funcion UserForm que retornara el formulario 
     con input de email y password
 2-El value y el onChange se obtendran de un estado local usando useState, valor inicial ''
@@ -463,3 +463,24 @@ GESTION DE USUARIOS///////////////////////
 6-Usarlos en los input con el spread operator 
 7-Crear archivo styles.js que contiene Form, Input, Button y Title
 
+------MUTACIONES PARA REGISTRO, ERROR, LOADING, DISABLED PROP
+1-Crear container>RegisterMutation.js
+2- Hacer
+    const REGISTER = gql`
+        mutation signup($input: UserCredentials!){
+            signup(input: $input)
+        }
+    `
+3-Exportar useRegisterMutation que retorna registerMutation, data, loading, error
+
+4-En NotRegisteredUser dentro de la funcion que recibe el activateAuth crear la funcion onSubmit
+    que recibe email y password, y que ejecuta la funcion registerMutation con el 
+    parametro { variables: {input: {email, password}} }
+    y una vez se ejecuta con exito con .then hacer la autentificacion.
+5-Manejo de error, en NotRegisteredUser crear la const errorMsg que va a ser igual a, si error
+    esta definido && mensaje de error,  y pasarla como prop a UserForm,
+    en UserForm recibir la prop y que renderize el mensaje debajo del formulario
+
+6-Manejo del Loading,en NotRegisteredUser pasar prop disabled={loading}, en UserForm recibir la prop y 
+pasarselo al formulario, a los inputs y al button 
+7-Añadir en styles opacity 0.3 cuando tenga la prop disabled
