@@ -2,30 +2,42 @@ import React from 'react'
 import Context from '../Context'
 import { UserForm } from '../components/UserForm'
 import { useRegisterMutation} from '../containers/RegisterMutation'
+import { useLoginMutation } from '../containers/LoginMutation'
 
 
 export const NotRegisteredUser = () => {
     const { registerMutation, data, loading, error} = useRegisterMutation()
+    const { loginMutation, data: loginData , loading: loginLoading, error: loginError} = useLoginMutation()
     
     return (
         <Context.Consumer> 
             {
                 ({activateAuth}) => {
-                    const onSubmit = ({email, password}) => {
+
+                    const handleRegisterSubmit = ({email, password}) => {
                         // const input = { email, password }
                         // const variables = { input }
                         registerMutation({ variables: {input: {email, password}} })
                         .then(activateAuth)
                     }
 
+                    const handleLoginSubmit = ({email, password}) => {
+                        loginMutation({ variables: {input: {email, password}} })
+                        .then(activateAuth)
+                    }
+
                     const errorMsg = error && 'ocurrio un problema o el usuario ya existe'
+                    const errorLog = loginError && 'La constraseña no es correcta o el usuario no existe'
 
                     return <>
-                        <UserForm onSubmit={onSubmit} title='Registrarse' error={errorMsg} loading={loading} disabled={loading} />
-                        <UserForm onSubmit={activateAuth} title='Iniciar Sesion'/>
+                        <UserForm onSubmit={handleLoginSubmit} title='Iniciar Sesion' error={errorLog} loading={loginLoading} disabled={loginLoading}/>
+                        <UserForm onSubmit={handleRegisterSubmit} title='Registrarse' error={errorMsg} loading={loading} disabled={loading} />
                     </>
                 }
             }
         </Context.Consumer>
     )
 }
+
+
+

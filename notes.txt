@@ -484,3 +484,9 @@ GESTION DE USUARIOS///////////////////////
 6-Manejo del Loading,en NotRegisteredUser pasar prop disabled={loading}, en UserForm recibir la prop y 
 pasarselo al formulario, a los inputs y al button 
 7-Añadir en styles opacity 0.3 cuando tenga la prop disabled
+
+-------MUTACIONES PARA INICIAR SESION
+1-Crear en containers>LoginMutation.js copiar el codigo de RegisterMutation.js que es similar y adaptarlo
+2-Usarlo en NotRegisteredUser ahora haciendo un handleSubmit para cada caso 
+3-Al traer lo elementos data, loading, error, renombrarlos para indentificar los de cada uno
+4-Pasar los mismos parametros que para el registro al Formulario de Login

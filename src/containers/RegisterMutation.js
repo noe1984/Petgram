@@ -11,5 +11,3 @@ export const useRegisterMutation = () => {
     return { registerMutation, data, loading, error  } 
 }
 
-
-
