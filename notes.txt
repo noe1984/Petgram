@@ -488,5 +488,19 @@ pasarselo al formulario, a los inputs y al button
 -------MUTACIONES PARA INICIAR SESION
 1-Crear en containers>LoginMutation.js copiar el codigo de RegisterMutation.js que es similar y adaptarlo
 2-Usarlo en NotRegisteredUser ahora haciendo un handleSubmit para cada caso 
-3-Al traer lo elementos data, loading, error, renombrarlos para indentificar los de cada uno
+3-Al traer los elementos data, loading, error, renombrarlos para indentificar los de cada uno
 4-Pasar los mismos parametros que para el registro al Formulario de Login
+
+------PERSISTIENDO DATOS EN SESSION STORAGE
+1-En NotRegisteredUser en la funcion registerMutation despues que se ejecuta la mutacion en .then pasar 
+    como parametro el "signup" que proviene de la "data" a activateAuth, dicho parametro es el token que se almacenara.
+2-Hacer lo mismo en la funcion loginMutation pero ahora el parametro sera 'login' que es lo que llega de la data.
+3-Ir a Context.js y en la funcion activateAuth recibir el token como parametro y almacenarlo con
+    window.sessionStorage.setItem('token', token), con la key token y el valor token.
+4-En donde se hace uso de useState en vez de un valor false inicial sera reemplazado por una funcion que obtiene
+el item del sessionStorage con la key que en este caso es 'token'.
+5-Mejorar codigo en NotRegisteredUser, importar useContext de react, *En Context exportar Context que ahora sera
+    importado como { Context } en NotRegisteredUser
+    const { activateAuth } = useContext(Context)
+    Quitar el Context.consumer que envolvia a las funciones solo para pasar el activateAuth
+

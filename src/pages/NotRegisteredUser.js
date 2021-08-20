@@ -1,42 +1,41 @@
-import React from 'react'
-import Context from '../Context'
+import React, { useContext }from 'react'
+import { Context } from '../Context'
 import { UserForm } from '../components/UserForm'
 import { useRegisterMutation} from '../containers/RegisterMutation'
 import { useLoginMutation } from '../containers/LoginMutation'
 
 
 export const NotRegisteredUser = () => {
+
+    const { activateAuth } = useContext(Context)
     const { registerMutation, data, loading, error} = useRegisterMutation()
     const { loginMutation, data: loginData , loading: loginLoading, error: loginError} = useLoginMutation()
     
-    return (
-        <Context.Consumer> 
-            {
-                ({activateAuth}) => {
+    const handleRegisterSubmit = ({email, password}) => {
+        // const input = { email, password }
+        // const variables = { input }
+        registerMutation({ variables: {input: {email, password}} })
+        .then( response => { 
+            const { signup } = response.data
+            activateAuth(signup) 
+        } )
+    }
 
-                    const handleRegisterSubmit = ({email, password}) => {
-                        // const input = { email, password }
-                        // const variables = { input }
-                        registerMutation({ variables: {input: {email, password}} })
-                        .then(activateAuth)
-                    }
+    const handleLoginSubmit = ({email, password}) => {
+        loginMutation({ variables: {input: {email, password}} })
+        .then( response => { 
+            const { login } = response.data
+            activateAuth(login) 
+        } )
+    }
 
-                    const handleLoginSubmit = ({email, password}) => {
-                        loginMutation({ variables: {input: {email, password}} })
-                        .then(activateAuth)
-                    }
+    const errorMsg = error && 'ocurrio un problema o el usuario ya existe'
+    const errorLog = loginError && 'La constraseña no es correcta o el usuario no existe'
 
-                    const errorMsg = error && 'ocurrio un problema o el usuario ya existe'
-                    const errorLog = loginError && 'La constraseña no es correcta o el usuario no existe'
-
-                    return <>
-                        <UserForm onSubmit={handleLoginSubmit} title='Iniciar Sesion' error={errorLog} loading={loginLoading} disabled={loginLoading}/>
-                        <UserForm onSubmit={handleRegisterSubmit} title='Registrarse' error={errorMsg} loading={loading} disabled={loading} />
-                    </>
-                }
-            }
-        </Context.Consumer>
-    )
+    return <>
+        <UserForm onSubmit={handleLoginSubmit} title='Iniciar Sesion' error={errorLog} loading={loginLoading} disabled={loginLoading}/>
+        <UserForm onSubmit={handleRegisterSubmit} title='Registrarse' error={errorMsg} loading={loading} disabled={loading} />
+    </>
 }
 
 
