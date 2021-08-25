@@ -504,3 +504,22 @@ el item del sessionStorage con la key que en este caso es 'token'.
     const { activateAuth } = useContext(Context)
     Quitar el Context.consumer que envolvia a las funciones solo para pasar el activateAuth
 
+-------HACER LIKE COMO USUARIO REGISTRADO 
+1-En container ToggleLikeMutation quitar el anonymous 
+2-En raiz index.js crear la conficuracion de la documentacion de autentificado de apollo
+    https://www.apollographql.com/docs/react/networking/authentication/
+
+    Donde primero se crea el httpLink que en este caso es el que estamos usando en vercel
+    Despues la const authLink que usa el setContext el cual contiene la const token del sessionStorage
+        y los headers con la authorization
+    Finalmente la const client que en link: hace un authLink.concat(httpLink),
+    y el cache contiene el new InMemoryCache()
+4-En photoCard quitar el uso de localStorage porque interfiere con las peticiones, el setLiked
+    Ahora el liked llega a traves de las props.
+5-Expiracion del token, en const client capturar el error
+    const { networkError } = error
+        if(networkError && networkError.result.code === 'invalid_token') {
+        window.sessionStorage.removeItem('token')
+        window.location.href = '/'
+    } 
+
