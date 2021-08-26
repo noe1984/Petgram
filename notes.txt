@@ -523,3 +523,13 @@ el item del sessionStorage con la key que en este caso es 'token'.
         window.location.href = '/'
     } 
 
+
+
+-------MOSTRAR FAVORITOS Y SOLUCIONAR FETCH POLICY
+1-En containers crear GetFavorites.js crear la const GET-FAVS usando gql 
+3-Crear la const GetFavorites que retorna un mapeo de los favs y que devuelve la imagen con el src que viene de
+    fav 
+3-Separar la parte del mapeo en un componente nuevo llamado ListOfFavs crear un index.js para ello
+    este nuevo componente recibe el objeto favs que por default es un array vacio
+4-Solucionar que cuando das click a un favorito al ir a favs este no se actualiza debido a que apollo muestran
+    lo que esta en el caché, esto se hace yendo a al useQuery y añadir { fetchPolicy: 'cache-and-network' }
