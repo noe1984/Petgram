@@ -533,3 +533,10 @@ el item del sessionStorage con la key que en este caso es 'token'.
     este nuevo componente recibe el objeto favs que por default es un array vacio
 4-Solucionar que cuando das click a un favorito al ir a favs este no se actualiza debido a que apollo muestran
     lo que esta en el caché, esto se hace yendo a al useQuery y añadir { fetchPolicy: 'cache-and-network' }
+
+
+--------CERRAR SESION
+1-En Context.js tambien se tiene que hacer un metodo contrario de autenticar, sera llamado removeAuth
+2-En pages User.js usar removeAuth en el onClick trayendolo con useContext y pasandole el Context
+3-Dar estilos al boton reutilizando el boton del formulario, crear en components> SubmitButton > index.js
+    y usarlo tanto en el form como en user
