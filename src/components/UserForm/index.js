@@ -1,5 +1,5 @@
 import React from 'react'
-import styles, { Form, Input, Title, Error } from './styles'
+import { Form, Input, Title, Error } from './styles'
 import { useInputValue } from '../../hooks/useInputValue'
 import {Loading} from '../../styles/Loading'
 import { SubmitButton } from '../SubmitButton'

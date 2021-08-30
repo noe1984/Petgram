@@ -540,3 +540,17 @@ el item del sessionStorage con la key que en este caso es 'token'.
 2-En pages User.js usar removeAuth en el onClick trayendolo con useContext y pasandole el Context
 3-Dar estilos al boton reutilizando el boton del formulario, crear en components> SubmitButton > index.js
     y usarlo tanto en el form como en user
+
+--------RETOQUES A PETGRAM 
+1-En App.js importar useContext de react y encerrar en parentesis el Context
+2-const { isAuth } = useContext(Context) y quitar el Consumer y envolver en llaves lo que queda
+3-Simplifica aun mas, en el Router principal crear 
+    {!isAuth && <NotRegisteredUser path='/login' />}
+    <Favs path='/favs' />
+    <User path='/user' />
+    Y borrar lo que habiamos dejado en la llave
+4-Para evitar que alguien que no este autentificado acceda a las rutas de favs y user usar un Redirect que importamos
+    de reach/router para cada ruta, añadir propiedad noThrow para evitar el error en consola.
+5-Añadir pagina si la ruta no existe, crear una nueva pagina llamada NotFound.js que renderiza mensaje esta pagina no 
+    existe.
+6-En App.js, en el Router usarlo como primera ruta <NotFound default />
