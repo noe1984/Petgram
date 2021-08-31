@@ -541,7 +541,7 @@ el item del sessionStorage con la key que en este caso es 'token'.
 3-Dar estilos al boton reutilizando el boton del formulario, crear en components> SubmitButton > index.js
     y usarlo tanto en el form como en user
 
---------RETOQUES A PETGRAM 
+--------RETOQUES A PETGRAM, REDIRECT
 1-En App.js importar useContext de react y encerrar en parentesis el Context
 2-const { isAuth } = useContext(Context) y quitar el Consumer y envolver en llaves lo que queda
 3-Simplifica aun mas, en el Router principal crear 
@@ -554,3 +554,11 @@ el item del sessionStorage con la key que en este caso es 'token'.
 5-Añadir pagina si la ruta no existe, crear una nueva pagina llamada NotFound.js que renderiza mensaje esta pagina no 
     existe.
 6-En App.js, en el Router usarlo como primera ruta <NotFound default />
+7-Corregir error que al querer iniciar sesion con la ruta /login muestra error que pagina no existe:
+    
+
+--------REACT HELMET
+1-Intalar dependencia npm install react-helmet
+2-En Home.js usar Helmet y poner dentro la etiqueta title y meta 
+3-Hacer lo mismo para Favs
+4-Crear componente Layout que devuelve Helmet y un div con title, subtitle y el children

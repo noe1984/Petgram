@@ -43,6 +43,7 @@
     "react": "^16.8.6",
     "react-content-loader": "^6.0.3",
     "react-dom": "^16.8.6",
+    "react-helmet": "^6.1.0",
     "react-icons": "^3.7.0",
     "styled-components": "^4.4.1"
   },
