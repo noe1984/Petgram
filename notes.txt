@@ -562,3 +562,23 @@ el item del sessionStorage con la key que en este caso es 'token'.
 2-En Home.js usar Helmet y poner dentro la etiqueta title y meta 
 3-Hacer lo mismo para Favs
 4-Crear componente Layout que devuelve Helmet y un div con title, subtitle y el children
+
+--------PERFORMANCE, REACT MEMO 
+1-En consola 
+    ./node_modules/.bin/webpack --mode "development"
+    npx serve dist -s
+
+2-Ir a en browser a pestana performance y al recargar podemos ver el desempeno de la app, cuanto ha tardado en renderizar
+    en milisegundos cada componente o pagina 
+3-Ir a pestana Profile del browser con ayuda de la extension react developer tools, donde se puede grabar cual es el coste
+    de los componentes y si algun componente se esta renderizando inecesariamente, en esta caso ListOfCategories lo
+    esta haciendo inecesariamente.
+4-En ListOfCategories index.js renombrar a ListOfCategoriesComponent y exportar const ListOfCategories que sera React.memo 
+    envolviendo al componente renombrado.
+    "serve:dev": "webpack --mode 'development' && npx serve dist -s --open"    para ejecutar de una los comandos
+    y ahora ListOfCategories ya no se renderizara inecesariamente.
+5-La Home tambien se esta renderizando de nuevo para evitarlo:
+    En pages> Home exportar la funcion Home pero con React.memo y como segundo parametro pasermos una funcion que recibe
+    las prevProvs y props, y hace un return de las props.id si son ===
+    
+
