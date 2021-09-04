@@ -580,5 +580,13 @@ el item del sessionStorage con la key que en este caso es 'token'.
 5-La Home tambien se esta renderizando de nuevo para evitarlo:
     En pages> Home exportar la funcion Home pero con React.memo y como segundo parametro pasermos una funcion que recibe
     las prevProvs y props, y hace un return de las props.id si son ===
-    
+
+
+--------REACT LAZY, SUSPENSE
+1-En App.js vamos a cargar favoritos solo cuando lo necesitemos, crear la const Favs que usara React.lazy que contendra un
+    import dinamico, usar Suspense en el return que envuelva todo y agragarle propiedad falllback que por ahora renderiza 
+    un div, Hacer un export default de Favs.
+2-Como saber que si esta funcionando el lazy, ir a consola >network>js 
+* Una acotación importante es que React.lazy y Suspense solo funcionan en Client Side Rendering. Si su aplicación usa Server
+ Side Rendering deberán usar loadable-components https://reactjs.org/docs/code-splitting.html#reactlazy
 
