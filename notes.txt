@@ -590,3 +590,34 @@ el item del sessionStorage con la key que en este caso es 'token'.
 * Una acotación importante es que React.lazy y Suspense solo funcionan en Client Side Rendering. Si su aplicación usa Server
  Side Rendering deberán usar loadable-components https://reactjs.org/docs/code-splitting.html#reactlazy
 
+
+--------VALIDANDO TIPOS DE DATOS, PropTypes 
+1- npm install prop-types
+2-En FavButton crear const 
+
+    FavButton.propTypes = {
+        liked: PropTypes.bool.isRequired,
+        likes: PropTypes.number.isRequired,
+        onClick: PropTypes.func.isRequired
+    } 
+
+    y en Photocard donde se usa el FavButton cambiar la prop liked y ver en consola el error que marca.
+    Añadir isRequired para establecer que es prop es necesaria.
+3-En ListOFavs haceer lo mismo
+
+    ListOfFavs.propTypes = {
+        favs: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            src: PropTypes.string.isRequired
+        })
+        )
+    }
+
+4-En SubmitButton, anadir las PropTypes en la de children sera del tipo node
+5-En PhotoCard hacer lo mismo pero en este caso para likes hacer una custom prop validation con una funcion
+    que recibe como parametros props, propName, compoenentName,
+    crear const propValue = props[propName]
+    hacer un condicional si la propValue undefined retornar un new error
+    lo mismo para propValue < 0
+  
