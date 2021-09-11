@@ -621,3 +621,17 @@ el item del sessionStorage con la key que en este caso es 'token'.
     hacer un condicional si la propValue undefined retornar un new error
     lo mismo para propValue < 0
   
+
+
+--------PWA MANIFEST
+1-Correr en forma de desarrollo a Petgram e ir a consola en lighhouse para ver los puntos faltantes para ser PWA
+2-En index.html en el body debajo del div crear la etiqueta <noscript>
+3-npm install webpack-pwa-manifest -D
+4-En webpack.config
+    const WebpackPwaManifestPlugin = require('webpack-pwa-manifest')
+    En la seccion de plugins anadir new WebpackPwaManifestPlugin con la configuracion correspondiente y anadir
+    el icon.
+--------PWA SERVICE WORKER - SOPORTE OFFLINE
+1-const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
+2-new WorkboxWebpackPlugin.GenerateSW y anadir configuracion 
+3-En index.html registrar el sw.
