@@ -635,3 +635,7 @@ el item del sessionStorage con la key que en este caso es 'token'.
 1-const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 2-new WorkboxWebpackPlugin.GenerateSW y anadir configuracion 
 3-En index.html registrar el sw.
+
+
+---------TESTING
+1-Hacer deploy de nuevo con vercel, 

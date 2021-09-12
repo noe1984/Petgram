@@ -7,7 +7,7 @@ import { onError } from '@apollo/client/link/error'
 import Context from './Context'
 
 const httpLink  = createHttpLink ({
-  uri: 'https://api-nine-gamma.vercel.app/graphql'
+  uri: 'https://mascotas-dun.vercel.app/graphql'
 });
 
 const authLink = setContext ((_, { headers }) => { // get the authentication token from local storage if it exists

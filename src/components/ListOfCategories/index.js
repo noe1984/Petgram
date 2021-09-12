@@ -1,8 +1,7 @@
-import React, {Fragment, useEffect, useState} from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { Category } from '../Category'
-import { Item, List } from './styles'
-import { Loading } from '../../styles/Loading'
- 
+
+import { List, Item } from './styles'
 
 function useCategoriesData () {
   const [categories, setCategories] = useState([])
@@ -10,49 +9,45 @@ function useCategoriesData () {
 
   useEffect(function () {
     setLoading(true)
-    fetch('https://api-noe1984.vercel.app/categories')
-    .then(res => res.json())
-    .then(response => {
-      setCategories(response)
-      setLoading(false)
-    })  
-  },[])
-  return {categories, loading}
+    window.fetch('https://mascotas-dun.vercel.app/categories')
+      .then(res => res.json())
+      .then(response => {
+        setCategories(response)
+        setLoading(false)
+      })
+  }, [])
+
+  return { categories, loading }
 }
 
-
-
 const ListOfCategoriesComponent = () => {
-  const [showFixed, setShowFixed] = useState(false)
-  
   const { categories, loading } = useCategoriesData()
-
+  const [showFixed, setShowFixed] = useState(false)
 
   useEffect(function () {
     const onScroll = e => {
-      const newShowfixed = window.scrollY > 200
-      showFixed !== newShowfixed && setShowFixed(newShowfixed)
+      const newShowFixed = window.scrollY > 200
+      showFixed !== newShowFixed && setShowFixed(newShowFixed)
     }
+
     document.addEventListener('scroll', onScroll)
+
     return () => document.removeEventListener('scroll', onScroll)
-  },[showFixed])
+  }, [showFixed])
 
   const renderList = (fixed) => (
     <List fixed={fixed}>
       {
-        loading? <Loading />
-        : categories.map(category => 
-        <Item key={category.id}>
-          <Category {...category} path={`/pet/${category.id}`} />
-        </Item>)
+        loading
+          ? <Item key='loading'><Category /></Item>
+          : categories.map(category => <Item key={category.id}><Category {...category} path={`/pet/${category.id}`} /></Item>)
       }
     </List>
   )
 
-  
   return (
     <Fragment>
-      {renderList()}
+      {renderList()} 
       {showFixed && renderList(true)}
     </Fragment>
   )
