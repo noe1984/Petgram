@@ -15,12 +15,17 @@ module.exports = {
       template: 'public/index.html'
     }),
     new WebpackPwaManifestPlugin({
-      name: 'Petgram - Tu app de ftoos de mascotas',
+      name: 'Petgram - Tu app de fotos de mascotas',
       shortname: 'Petgram',
       description: 'Con Petgram puedes encontrar fotos de animales domésticos my fácilmente',
       background_color: '#fff',
       theme_color: '#b1a',
       icons: [
+        {
+          src: path.resolve('src/assets/maskable-icon.png'),
+          size: '1024x1024',
+          purpose: 'maskable'
+        },
         {
           src: path.resolve('src/assets/icon.png'),
           sizes: [96, 128, 192, 256, 384, 512]
@@ -28,6 +33,7 @@ module.exports = {
       ]
     }),
     new WorkboxWebpackPlugin.GenerateSW({
+      maximumFileSizeToCacheInBytes: 5000000,
       runtimeCaching: [
         {
           urlPattern: new RegExp('https://(res.cloudinary.com|images.unsplash.com)'),
@@ -37,7 +43,7 @@ module.exports = {
           }
         },
         {
-          urlPattern: new RegExp('https://petgram-server.midudev.now.sh'),
+          urlPattern: new RegExp('https://pets-psi.vercel.app/'),
           handler: 'NetworkFirst',
           options: {
             cacheName: 'api'

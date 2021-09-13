@@ -15,11 +15,12 @@ export const ListOfFavs = ({ favs = [] }) => {
 }
 
 
-// ListOfFavs.propTypes = {
-//   favs: PropTypes.arrayOf(
-//     PropTypes.shape({
-//       id: PropTypes.string.isRequired,
-//       src: PropTypes.string.isRequired
-//     })
-//   )
-// }
+ListOfFavs.propTypes = {
+    favs: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired
+      })
+    )
+  }
+  

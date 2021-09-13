@@ -635,6 +635,16 @@ el item del sessionStorage con la key que en este caso es 'token'.
 1-const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 2-new WorkboxWebpackPlugin.GenerateSW y anadir configuracion 
 3-En index.html registrar el sw.
+4-maximumFileSizeToCacheInBytes: 5000000, en WorkboxWebpackPlugin
+5-En webpack config
+        {
+          src: path.resolve('src/assets/maskable-icon.png'),
+          size: '1024x1024',
+          purpose: 'maskable'
+        },
+index.js > head
+
+<link rel="apple-touch-icon" href="/src/assets/icons/ios-icon.png" />
 
 
 ---------TESTING
