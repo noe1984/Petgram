@@ -648,4 +648,10 @@ index.js > head
 
 
 ---------TESTING
-1-Hacer deploy de nuevo con vercel, 
+1-Hacer deploy de nuevo con vercel, tendra un pequeno error en consola acerca del icon que se arregla:
+2- *para error en consola
+    sudo apt-get update
+    sudo apt-get upgrade
+3- sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+4-npm install cypress -D
+5- ./node_modules/.bin/cypress open
