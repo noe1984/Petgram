@@ -655,3 +655,52 @@ index.js > head
 3- sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 4-npm install cypress -D
 5- ./node_modules/.bin/cypress open
+
+
+---------DEPLOY TO FIREBASE
+>Crear proyecto en firebase 
+-entrar en compilacion y hosting
+
+(en consola linux)
+-npm install -g firebase-tools
+-firebase login  
+-firebase init 
+-Seleccionar opcion de hosting and optionally github actions
+-En este caso seleccionar un proyecto existente "myProyect"
+-Añadir dist como directorio publico
+-Configurar como single page app
+-Deploys automaticos con github en este caso seleccionar node
+-elegir no sobreescbir dist/index
+-En este punto firebase esta configurado
+*firebase deploy
+-hacer git add y git commit -m "[add] firebase hosting"
+-hacer git push -u origin main
+-continuar con los pasos para llegar a la consola del hosting
+
+>Github 
+-entrar a pagina "GitHub Actions for Firebase" y copiar el script de ejemplo
+-En raiz del proyecto crear una carpeta llamada .github y dentro crear carpeta workflows
+-en workflows crear el archivo deploy-to-firebase.yml y dentro pegar el script
+-en build
+    cambiar  
+        on:
+        push:
+            branches:
+            - master
+        por
+        on: [push] 
+        para que cuando se haga build and deploy se envie automaticamente
+
+    -cambiar 
+    run: npm run build-prod  
+    por run: npm run build 
+
+-guardar los cambios anteriores-
+
+(en consola linux)
+-Obtener token mediante firebase login:ci 
+
+(github)
+>En repositorio ir a configuracion, Secrets, crear new secret con el nombre FIREBASE_TOKEN
+>Enviar cambios al repositorio de github
+>verificar en actions de github que se encuentre el primer desencadenamiento detectado
