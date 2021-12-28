@@ -232,6 +232,7 @@ HOOKS/////////////////////
     
                              
 GRAPHQL Y REACT APOLLO///////////////////////
+npm install graphql @apollo/client
 
 ------CONECTANDO CON SERVIDOR DE APOLLO
 1- En index.js principal

@@ -11,7 +11,7 @@ export const useGetPhotos = ({categoryId}) => {
           src
           likes
           userId
-          liked
+          liked 
         }
       }
     `

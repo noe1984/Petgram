@@ -16,6 +16,6 @@ export const ListOfPhotoCards = (categoryId) => {
         <PhotoCard key={photo.id} {...photo} />
         ))}
     </ul>
-  )
+  ) 
 }
 
